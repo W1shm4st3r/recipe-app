@@ -77,5 +77,8 @@ public class Recipe {
         return getClass().hashCode();
     }
 
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
 }
 
