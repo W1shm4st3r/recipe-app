@@ -1,5 +1,7 @@
 package git.w1shm4st3r.recipeapp.services;
 
+import git.w1shm4st3r.recipeapp.converter.RecipeCommandToRecipe;
+import git.w1shm4st3r.recipeapp.converter.RecipeToRecipeCommand;
 import git.w1shm4st3r.recipeapp.domain.Recipe;
 import git.w1shm4st3r.recipeapp.repositories.RecipeRepository;
 import org.junit.Before;
@@ -22,10 +24,16 @@ public class RecipeServiceImplTest {
     @Mock
     RecipeRepository recipeRepository;
 
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
+
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+
     @Before
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test
@@ -56,4 +64,7 @@ public class RecipeServiceImplTest {
         verify(recipeRepository, never()).findAll();
     }
 
+    @Test
+    public void saveRecipeCommand() {
+    }
 }

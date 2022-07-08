@@ -1,5 +1,8 @@
 package git.w1shm4st3r.recipeapp.services;
 
+import git.w1shm4st3r.recipeapp.commands.RecipeCommand;
+import git.w1shm4st3r.recipeapp.converter.RecipeCommandToRecipe;
+import git.w1shm4st3r.recipeapp.converter.RecipeToRecipeCommand;
 import git.w1shm4st3r.recipeapp.domain.Recipe;
 import git.w1shm4st3r.recipeapp.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -14,9 +17,13 @@ import java.util.Set;
 public class RecipeServiceImpl implements RecipeService {
 
     private final RecipeRepository recipeRepository;
+    private final RecipeCommandToRecipe recipeCommandToRecipe;
+    private final RecipeToRecipeCommand recipeToRecipeCommand;
 
-    public RecipeServiceImpl(RecipeRepository recipeRepository) {
+    public RecipeServiceImpl(RecipeRepository recipeRepository, RecipeCommandToRecipe recipeCommandToRecipe, RecipeToRecipeCommand recipeToRecipeCommand) {
         this.recipeRepository = recipeRepository;
+        this.recipeCommandToRecipe = recipeCommandToRecipe;
+        this.recipeToRecipeCommand = recipeToRecipeCommand;
     }
 
     @Override
@@ -34,6 +41,14 @@ public class RecipeServiceImpl implements RecipeService {
             throw new RuntimeException("Recipe not found!");
         }
         return recipeOptional.get();
+    }
+
+    @Override
+    public RecipeCommand saveRecipeCommand(RecipeCommand command) {
+        Recipe detachedRecipe = recipeCommandToRecipe.convert(command);
+        Recipe savedRecipe = recipeRepository.save(detachedRecipe);
+        log.debug("Saved recipe id: " + savedRecipe.getId());
+        return recipeToRecipeCommand.convert(savedRecipe);
     }
 
 }
