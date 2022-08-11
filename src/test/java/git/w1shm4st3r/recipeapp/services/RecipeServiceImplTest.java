@@ -1,13 +1,16 @@
 package git.w1shm4st3r.recipeapp.services;
 
+import git.w1shm4st3r.recipeapp.commands.RecipeCommand;
 import git.w1shm4st3r.recipeapp.converter.RecipeCommandToRecipe;
 import git.w1shm4st3r.recipeapp.converter.RecipeToRecipeCommand;
 import git.w1shm4st3r.recipeapp.domain.Recipe;
 import git.w1shm4st3r.recipeapp.repositories.RecipeRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -17,6 +20,7 @@ import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
+@Slf4j
 public class RecipeServiceImplTest {
 
     RecipeServiceImpl recipeService;
@@ -65,6 +69,12 @@ public class RecipeServiceImplTest {
     }
 
     @Test
-    public void saveRecipeCommand() {
+    public void testDeleteById() {
+        Long idToDelete = Long.valueOf(2L);
+        recipeService.deleteById(idToDelete);
+
+        //no 'when', since method has void return type
+
+        verify(recipeRepository, times(1)).deleteById(anyLong());
     }
 }
