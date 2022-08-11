@@ -5,7 +5,6 @@ import git.w1shm4st3r.recipeapp.commands.IngredientCommand;
 import git.w1shm4st3r.recipeapp.commands.NotesCommand;
 import git.w1shm4st3r.recipeapp.commands.RecipeCommand;
 import git.w1shm4st3r.recipeapp.domain.Difficulty;
-import git.w1shm4st3r.recipeapp.domain.Notes;
 import git.w1shm4st3r.recipeapp.domain.Recipe;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
