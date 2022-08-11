@@ -24,18 +24,23 @@ public class IngredientServiceImpl implements IngredientService {
     @Override
     public IngredientCommand findByRecipeIdAndIngredientId(Long recipeId, Long ingredientId) {
         Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
+
         if (recipeOptional.isEmpty()) {
             //TODO impl error handling
             log.error("Recipe id not found. Id: " + recipeId);
         }
+
         Recipe recipe = recipeOptional.get();
+
         Optional<IngredientCommand> ingredientCommandOptional = recipe.getIngredients().stream()
                 .filter(ingredient -> ingredient.getId().equals(ingredientId))
                 .map(ingredient -> ingredientToIngredientCommand.convert(ingredient)).findFirst();
+
         if (ingredientCommandOptional.isEmpty()) {
             //TODO impl error handling
             log.error("Ingredient id not found. Id: " + ingredientId);
         }
+
         return ingredientCommandOptional.get();
     }
 
