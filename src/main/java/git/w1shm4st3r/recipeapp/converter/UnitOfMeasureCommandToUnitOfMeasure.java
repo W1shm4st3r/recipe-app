@@ -13,7 +13,7 @@ public class UnitOfMeasureCommandToUnitOfMeasure implements Converter<UnitOfMeas
     @Synchronized
     @Nullable
     @Override
-    public UnitOfMeasure convert(UnitOfMeasureCommand source) {
+    public UnitOfMeasure convert(git.w1shm4st3r.recipeapp.commands.UnitOfMeasureCommand source) {
         if (source == null) {
             return null;
         }

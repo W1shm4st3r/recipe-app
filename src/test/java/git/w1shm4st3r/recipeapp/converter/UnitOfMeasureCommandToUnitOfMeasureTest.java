@@ -1,6 +1,5 @@
 package git.w1shm4st3r.recipeapp.converter;
 
-import git.w1shm4st3r.recipeapp.commands.UnitOfMeasureCommand;
 import git.w1shm4st3r.recipeapp.domain.UnitOfMeasure;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,13 +25,13 @@ class UnitOfMeasureCommandToUnitOfMeasureTest {
 
     @Test
     public void testEmptyObject() {
-        assertNotNull(converter.convert(new UnitOfMeasureCommand()));
+        assertNotNull(converter.convert(new git.w1shm4st3r.recipeapp.commands.UnitOfMeasureCommand()));
     }
 
     @Test
     void convert() {
         //GIVEN
-        UnitOfMeasureCommand command = new UnitOfMeasureCommand();
+        git.w1shm4st3r.recipeapp.commands.UnitOfMeasureCommand command = new git.w1shm4st3r.recipeapp.commands.UnitOfMeasureCommand();
         command.setId(LONG_VALUE);
         command.setDescription(DESCRIPTION);
 

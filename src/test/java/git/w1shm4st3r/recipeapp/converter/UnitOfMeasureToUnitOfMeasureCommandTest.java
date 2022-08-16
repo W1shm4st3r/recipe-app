@@ -1,6 +1,5 @@
 package git.w1shm4st3r.recipeapp.converter;
 
-import git.w1shm4st3r.recipeapp.commands.UnitOfMeasureCommand;
 import git.w1shm4st3r.recipeapp.domain.UnitOfMeasure;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,7 +36,7 @@ class UnitOfMeasureToUnitOfMeasureCommandTest {
         uom.setDescription(DESCRIPTION);
 
         //WHEN
-        UnitOfMeasureCommand uomc = converter.convert(uom);
+        git.w1shm4st3r.recipeapp.commands.UnitOfMeasureCommand uomc = converter.convert(uom);
 
         //THEN
         assertEquals(LONG_VALUE, uomc.getId());
