@@ -1,6 +1,8 @@
 package git.w1shm4st3r.recipeapp.controllers;
 
 import git.w1shm4st3r.recipeapp.commands.IngredientCommand;
+import git.w1shm4st3r.recipeapp.commands.RecipeCommand;
+import git.w1shm4st3r.recipeapp.commands.UnitOfMeasureCommand;
 import git.w1shm4st3r.recipeapp.services.IngredientService;
 import git.w1shm4st3r.recipeapp.services.RecipeService;
 import git.w1shm4st3r.recipeapp.services.UnitOfMeasureService;
@@ -54,5 +56,27 @@ public class IngredientController {
         log.debug("Saved recipe id: " + savedCommand.getRecipeId());
         log.debug("Saved ingredient id: " + savedCommand.getId());
         return "redirect:/recipe/" + savedCommand.getRecipeId() + "/ingredient/" + savedCommand.getId() + "/show";
+    }
+
+    @GetMapping("recipe/{recipeId}/ingredient/new")
+    public String newRecipe(@PathVariable String recipeId, Model model) {
+        RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(recipeId));
+        //TODO raise exception if null
+
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(Long.valueOf(recipeId));
+        model.addAttribute("ingredient", ingredientCommand);
+
+        ingredientCommand.setUom(new UnitOfMeasureCommand());
+        model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
+
+        return "recipe/ingredient/ingredientform";
+    }
+
+    @GetMapping("recipe/{recipeId}/ingredient/{id}/delete")
+    public String deleteIngredient(@PathVariable String recipeId, @PathVariable String id) {
+        log.debug("deleting ingredient id:" + id);
+        ingredientService.deleteById(Long.valueOf(recipeId), Long.valueOf(id));
+        return "redirect:/recipe/" + recipeId + "/ingredients";
     }
 }
