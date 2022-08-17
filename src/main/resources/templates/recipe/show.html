@@ -28,6 +28,7 @@
               <div class="col-md-3">
                 <h1 class="panel-title" th:text="${recipe.description}">Recipe Description Here!</h1>
               </div>
+
               <div class="col-md-1">
                 <a class="btn btn-default" href="#"
                    th:href="@{'/recipe/' + ${recipe.id} + '/image'}" role="button">Change Image</a>
@@ -43,12 +44,14 @@
                 <ul>
                   <li th:remove="all">cat one</li>
                   <li th:remove="all">cat two</li>
-                  <li th:each="category: ${recipe.categories}" th:text="${category.getDescription()}">cat three</li>
+                  <li th:each="category : ${recipe.categories}"
+                      th:text="${category.getDescription()}">cat three
+                  </li>
                 </ul>
               </div>
               <div class="col-md-6">
                 <img src="../../static/images/guacamole400x400WithX.jpg"
-                     th:src="@{/images/guacamole400x400WithX.jpg}"
+                     th:src="@{'/recipe/' + ${recipe.id} + '/recipeimage'}"
                      width="200" height="200">
               </div>
             </div>
@@ -91,7 +94,7 @@
                 <h5>URL:</h5>
               </div>
               <div class="col-md-3">
-                <p><a href="#" th:href="${recipe.url}">Simply Recipes</a></p>
+                <p><a href="#" th:href="@{recipe.url}">View Original</a></p>
               </div>
             </div>
           </div>
@@ -117,7 +120,8 @@
                   <li th:each="ingredient : ${recipe.ingredients}"
                       th:text="${(ingredient.getAmount() +
                                         ' ' + ingredient.uom.getDescription() +
-                                        ' - ' + ingredient.getDescription())}">1 Teaspoon of Sugar</li>
+                                        ' - ' + ingredient.getDescription())}">1 Teaspoon of Sugar
+                  </li>
                 </ul>
               </div>
             </div>
